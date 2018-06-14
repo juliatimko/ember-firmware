@@ -4,7 +4,7 @@
 //  This file is part of the Ember firmware.
 //
 //  Copyright 2015 Autodesk, Inc. <http://ember.autodesk.com/>
-//    
+//
 //  Authors:
 //  Richard Greene
 //
@@ -30,7 +30,7 @@
 
 #define RAPIDJSON_ASSERT(x)   \
   if (x);                     \
-  else throw std::exception();  
+  else throw std::exception();
 
 #include <rapidjson/writer.h>
 #include <rapidjson/reader.h>
@@ -69,20 +69,20 @@ _errorHandler(NULL)
             "\"" << MOTOR_TIMEOUT_FACTOR   << "\": 1.1," <<
             "\"" << MIN_MOTOR_TIMEOUT_SEC  << "\": 15.0," <<
             "\"" << PROJECTOR_LED_CURRENT  << "\": -1," <<
-            
+
             "\"" << MICRO_STEPS_MODE       << "\": 6," <<
             "\"" << Z_STEP_ANGLE           << "\": 1800," <<
             "\"" << Z_MICRONS_PER_REV      << "\": 2000," <<
-            
+
             "\"" << R_STEP_ANGLE           << "\": 1800," <<
             "\"" << R_MILLIDEGREES_PER_REV << "\": 180000," <<
-            
+
             "\"" << Z_HOMING_JERK          << "\": 500000," <<
             "\"" << Z_HOMING_SPEED         << "\": 3000," <<
             "\"" << R_HOMING_JERK          << "\": 100000," <<
             "\"" << R_HOMING_SPEED         << "\": 5," <<
             "\"" << R_HOMING_ANGLE         << "\": -60000," <<
-            
+
             "\"" << Z_START_PRINT_JERK     << "\": 100000," <<
             "\"" << Z_START_PRINT_SPEED    << "\": 3000," <<
             "\"" << Z_START_PRINT_POSITION << "\": -165000," <<
@@ -92,9 +92,9 @@ _errorHandler(NULL)
             "\"" << FRONT_PANEL_AWAKE_TIME << "\": 30," <<
             "\"" << IMAGE_SCALE_FACTOR     << "\": 1.0," <<
             "\"" << PAT_MODE_SCALE_FACTOR  << "\": 1.0," <<
-            "\"" << USB_DRIVE_DATA_DIR     << "\": \"/EmberUSB\"," << 
-            "\"" << FW_VERSION             << "\": \"\""; 
-    
+            "\"" << USB_DRIVE_DATA_DIR     << "\": \"/EmberUSB\"," <<
+            "\"" << FW_VERSION             << "\": \"\"";
+
 
     // Print settings are specific to a print, rather than the printer as a whole
     std::ostringstream printSpecificSettings;
@@ -103,16 +103,16 @@ _errorHandler(NULL)
             "\"" << USER_NAME_SETTING      << "\": \"\"," <<
             "\"" << JOB_ID_SETTING         << "\": \"\"," <<
             "\"" << PRINT_FILE_SETTING     << "\": \"\"," <<
-            
+
             "\"" << LAYER_THICKNESS        << "\": 25," <<
             "\"" << FIRST_EXPOSURE         << "\": 5.0," <<
             "\"" << BURN_IN_LAYERS         << "\": 1," <<
             "\"" << BURN_IN_EXPOSURE       << "\": 4.0," <<
             "\"" << MODEL_EXPOSURE         << "\": 2.5," <<
-            
+
             "\"" << HOME_ON_APPROACH       << "\": 0," <<
             "\"" << USE_PATTERN_MODE       << "\": 0," <<
-            
+
             "\"" << FL_SEPARATION_R_JERK   << "\": 100000," <<
             "\"" << FL_SEPARATION_R_SPEED  << "\": 6," <<
             "\"" << FL_APPROACH_R_JERK     << "\": 100000," <<
@@ -122,7 +122,7 @@ _errorHandler(NULL)
             "\"" << FL_SEPARATION_Z_SPEED  << "\": 3000," <<
             "\"" << FL_APPROACH_Z_JERK     << "\": 100000," <<
             "\"" << FL_APPROACH_Z_SPEED    << "\": 3000," <<
-            "\"" << FL_ROTATION            << "\": 60000," <<
+            "\"" << FL_ROTATION            << "\": 0," <<
             "\"" << FL_EXPOSURE_WAIT       << "\": 0," <<
             "\"" << FL_SEPARATION_WAIT     << "\": 0," <<
             "\"" << FL_APPROACH_WAIT       << "\": 0," <<
@@ -130,7 +130,7 @@ _errorHandler(NULL)
             "\"" << FL_PRESS_SPEED         << "\": 3000," <<
             "\"" << FL_PRESS_WAIT          << "\": 0," <<
             "\"" << FL_UNPRESS_SPEED       << "\": 3000," <<
- 
+
             "\"" << BI_SEPARATION_R_JERK   << "\": 100000," <<
             "\"" << BI_SEPARATION_R_SPEED  << "\": 11," <<
             "\"" << BI_APPROACH_R_JERK     << "\": 100000," <<
@@ -148,7 +148,7 @@ _errorHandler(NULL)
             "\"" << BI_PRESS_SPEED         << "\": 3000," <<
             "\"" << BI_PRESS_WAIT          << "\": 0," <<
             "\"" << BI_UNPRESS_SPEED       << "\": 3000," <<
- 
+
             "\"" << ML_SEPARATION_R_JERK   << "\": 100000," <<
             "\"" << ML_SEPARATION_R_SPEED  << "\": 12," <<
             "\"" << ML_APPROACH_R_JERK     << "\": 100000," <<
@@ -181,16 +181,16 @@ _errorHandler(NULL)
     defaultPrintSpecificJSON << JSONPrefix.str() << printSpecificSettings.str()
             << "}}";
     _defaultPrintSpecificJSON = defaultPrintSpecificJSON.str();
-   
+
     // create the set of valid setting names
     Document doc;
     doc.Parse(_defaultJSON.c_str());
     const Value& root = doc[SETTINGS_ROOT_KEY];
-    for (Value::ConstMemberIterator itr = root.MemberBegin(); 
+    for (Value::ConstMemberIterator itr = root.MemberBegin();
                                     itr != root.MemberEnd(); ++itr)
     {
-        _names.insert(itr->name.GetString()); 
-    }    
+        _names.insert(itr->name.GetString());
+    }
 
     // Make sure the parent directory of the settings file exists
     EnsureSettingsDirectoryExists();
@@ -205,14 +205,14 @@ _errorHandler(NULL)
 }
 
 // Destructor.
-Settings::~Settings() 
+Settings::~Settings()
 {
 }
 
 constexpr int LOAD_BUF_LEN = 1024;
-// Load all the Settings from a file.  If 'initializing' is true, then any 
+// Load all the Settings from a file.  If 'initializing' is true, then any
 // corrupted or missing settings are given their default values.  In that way,
-// when new settings are added in new versions of the firmware, any values for 
+// when new settings are added in new versions of the firmware, any values for
 // existing settings will not be lost.
 bool Settings::Load(const std::string& filename, bool initializing)
 {
@@ -229,52 +229,52 @@ bool Settings::Load(const std::string& filename, bool initializing)
 
         // make sure the file is valid
         RAPIDJSON_ASSERT(doc.IsObject() && doc.HasMember(SETTINGS_ROOT_KEY))
-                
-        // create a default doc, to check that all the expected setting names 
+
+        // create a default doc, to check that all the expected setting names
         // are present and have the correct type
         // (we may not yet have a valid _settingsDoc)
         Document defaultDoc;
-        defaultDoc.Parse(_defaultJSON.c_str());                
-                
-        for (std::set<std::string>::iterator it = _names.begin(); 
+        defaultDoc.Parse(_defaultJSON.c_str());
+
+        for (std::set<std::string>::iterator it = _names.begin();
                                              it != _names.end(); ++it)
         {
-            if (doc[SETTINGS_ROOT_KEY].HasMember(it->c_str())) 
+            if (doc[SETTINGS_ROOT_KEY].HasMember(it->c_str()))
             {
                 if (!AreSameType(defaultDoc[SETTINGS_ROOT_KEY][it->c_str()],
                                        doc[SETTINGS_ROOT_KEY][it->c_str()]))
                 {
                     HandleError(WrongTypeForSetting, true, it->c_str());
-                    return false;                
-                }           
+                    return false;
+                }
             }
             else
             {
                 if (initializing) // record the missing member to be added
                     missing.push_back(*it);
                 else
-                    throw std::exception(); 
+                    throw std::exception();
             }
         }
-        
+
         // parse again, but now into _settingsDoc
         fseek(pFile, 0, SEEK_SET);
         FileReadStream frs2(pFile, buf, LOAD_BUF_LEN);
         _settingsDoc.ParseStream(frs2);
-        fclose(pFile);  
-        
+        fclose(pFile);
+
         if (initializing && missing.size() > 0)
         {
             // add any missing settings, with their default values
-            for (std::vector<std::string>::iterator it = missing.begin(); 
+            for (std::vector<std::string>::iterator it = missing.begin();
                                                     it != missing.end(); ++it)
             {
-                _settingsDoc[SETTINGS_ROOT_KEY].AddMember(StringRef(it->c_str()), 
-                        defaultDoc[SETTINGS_ROOT_KEY][StringRef(it->c_str())], 
+                _settingsDoc[SETTINGS_ROOT_KEY].AddMember(StringRef(it->c_str()),
+                        defaultDoc[SETTINGS_ROOT_KEY][StringRef(it->c_str())],
                         _settingsDoc.GetAllocator());
             }
             Save();
-        }              
+        }
         retVal = true;
     }
     catch(std::exception)
@@ -283,51 +283,51 @@ bool Settings::Load(const std::string& filename, bool initializing)
         // the settings file from scratch
         if (!initializing)
             HandleError(CantLoadSettings, true, filename.c_str());
-    } 
+    }
     return retVal;
 }
-        
-// Parse specified string as JSON and set any settings contained in the string 
+
+// Parse specified string as JSON and set any settings contained in the string
 // to their specified values
 bool Settings::SetFromJSONString(const std::string& str)
 {
     bool retVal = false;
     StringStream ss(str.c_str());
-    
+
     try
-    { 
+    {
         Document defaultsDoc;
         defaultsDoc.Parse(_defaultJSON.c_str());
- 
+
         Document doc;
         doc.ParseStream(ss);
         const Value& root = doc[SETTINGS_ROOT_KEY];
-        
+
         // first validate the name & type of each setting from the given string
-        for (Value::ConstMemberIterator itr = root.MemberBegin(); 
+        for (Value::ConstMemberIterator itr = root.MemberBegin();
                                         itr != root.MemberEnd(); ++itr)
         {
-            const char* name = itr->name.GetString(); 
+            const char* name = itr->name.GetString();
             if (!IsValidSettingName(name))
             {
                 HandleError(UnknownSetting, true, name);
                 return false;
             }
-            
+
             if (!AreSameType(defaultsDoc[SETTINGS_ROOT_KEY][name],
                                      doc[SETTINGS_ROOT_KEY][name]))
             {
 
                 HandleError(WrongTypeForSetting, true, name);
-                return false;                
+                return false;
             }
         }
-        
+
         // then set each value into the settings document
-        for (Value::ConstMemberIterator itr = root.MemberBegin(); 
+        for (Value::ConstMemberIterator itr = root.MemberBegin();
                                         itr != root.MemberEnd(); ++itr)
         {
-            const char* name = itr->name.GetString();              
+            const char* name = itr->name.GetString();
             if (_settingsDoc[SETTINGS_ROOT_KEY][name].IsString())
             {
                 // need to make a copy of the string to be stored
@@ -337,7 +337,7 @@ bool Settings::SetFromJSONString(const std::string& str)
                 _settingsDoc[SETTINGS_ROOT_KEY][name] = s;
             }
             else
-                _settingsDoc[SETTINGS_ROOT_KEY][name] = 
+                _settingsDoc[SETTINGS_ROOT_KEY][name] =
                                                 doc[SETTINGS_ROOT_KEY][name];
         }
         Save();
@@ -350,26 +350,26 @@ bool Settings::SetFromJSONString(const std::string& str)
     return retVal;
 }
 
-// Parse contents of specified file as JSON and set any settings contained in 
+// Parse contents of specified file as JSON and set any settings contained in
 // the JSON to their specified values
 bool Settings::SetFromFile(const std::string& filename)
 {
     std::stringstream buffer;
     std::ifstream settingsFile(filename.c_str());
-   
+
     // check if file exists
-    if (!settingsFile.is_open()) 
-        return false;    
-    
+    if (!settingsFile.is_open())
+        return false;
+
     buffer << settingsFile.rdbuf();
-    
+
     return SetFromJSONString(buffer.str());
 }
 
 // Save the current settings in the main settings file
 void Settings::Save()
 {
-    Save(_settingsPath); 
+    Save(_settingsPath);
 }
 
 // Save the current settings in the given file
@@ -379,8 +379,8 @@ void Settings::Save(const std::string& filename)
     {
         FILE* pFile = fopen (filename.c_str(), "w");
         FileStream fs(pFile);
-        PrettyWriter<FileStream> writer(fs); 
-        _settingsDoc.Accept(writer);     
+        PrettyWriter<FileStream> writer(fs);
+        _settingsDoc.Accept(writer);
         // call fsync to ensure critical data is written to the storage device
         fsync(fileno(pFile));
         fclose(pFile);
@@ -394,11 +394,11 @@ void Settings::Save(const std::string& filename)
 // Get all the settings as a single text string in JSON.
 std::string Settings::GetAllSettingsAsJSONString()
 {
-    StringBuffer buffer; 
+    StringBuffer buffer;
     try
     {
         Writer<StringBuffer> writer(buffer);
-        _settingsDoc.Accept(writer);        
+        _settingsDoc.Accept(writer);
     }
     catch(std::exception)
     {
@@ -412,9 +412,9 @@ void Settings::RestoreAll()
 {
     try
     {
-        _settingsDoc.Parse(_defaultJSON.c_str()); 
+        _settingsDoc.Parse(_defaultJSON.c_str());
 
-        Save();     
+        Save();
     }
     catch(std::exception)
     {
@@ -429,8 +429,8 @@ void Settings::Restore(const std::string key)
     {
         Document defaultsDoc;
         defaultsDoc.Parse(_defaultJSON.c_str());
-        
-        _settingsDoc[SETTINGS_ROOT_KEY][StringRef(key.c_str())] = 
+
+        _settingsDoc[SETTINGS_ROOT_KEY][StringRef(key.c_str())] =
                          defaultsDoc[SETTINGS_ROOT_KEY][StringRef(key.c_str())];
         Save();
     }
@@ -449,15 +449,15 @@ bool Settings::RestoreAllPrintSettings()
     {
         Document defaultsDoc;
         defaultsDoc.Parse(_defaultPrintSpecificJSON.c_str());
-        
+
         // for each key in default print settings
         const Value& root = defaultsDoc[SETTINGS_ROOT_KEY];
-        for (Value::ConstMemberIterator itr = root.MemberBegin(); 
+        for (Value::ConstMemberIterator itr = root.MemberBegin();
                                         itr != root.MemberEnd(); ++itr)
         {
-            const char* key = itr->name.GetString(); 
+            const char* key = itr->name.GetString();
 
-            _settingsDoc[SETTINGS_ROOT_KEY][StringRef(key)] = 
+            _settingsDoc[SETTINGS_ROOT_KEY][StringRef(key)] =
                          defaultsDoc[SETTINGS_ROOT_KEY][StringRef(key)];
         }
         Save();
@@ -473,7 +473,7 @@ bool Settings::RestoreAllPrintSettings()
 // Reload the settings from the settings file
 void Settings::Refresh()
 {
-    Load(_settingsPath); 
+    Load(_settingsPath);
 }
 
 // Set  a new value for a saving but don't persist the change
@@ -485,9 +485,9 @@ void Settings::Set(const std::string key, const std::string value)
         {
             // need to make a copy of the string to be stored
             Value s;
-            s.SetString(value.c_str(), value.length(), 
+            s.SetString(value.c_str(), value.length(),
                                                 _settingsDoc.GetAllocator());
-            _settingsDoc[SETTINGS_ROOT_KEY][StringRef(key.c_str())] =  s;           
+            _settingsDoc[SETTINGS_ROOT_KEY][StringRef(key.c_str())] =  s;
         }
         else
             HandleError(UnknownSetting, true, key.c_str());
@@ -495,7 +495,7 @@ void Settings::Set(const std::string key, const std::string value)
     catch(std::exception)
     {
         HandleError(CantSetSetting, true, key.c_str());
-    }  
+    }
 }
 
 void Settings::Set(const std::string key, int value)
@@ -510,7 +510,7 @@ void Settings::Set(const std::string key, int value)
     catch(std::exception)
     {
         HandleError(CantSetSetting, true, key.c_str());
-    }    
+    }
 }
 
 void Settings::Set(const std::string key, double value)
@@ -525,7 +525,7 @@ void Settings::Set(const std::string key, double value)
     catch(std::exception)
     {
         HandleError(CantSetSetting, true, key.c_str());
-    }    
+    }
 }
 
 // Return the value of an integer setting.
@@ -535,15 +535,15 @@ int Settings::GetInt(const std::string key)
     try
     {
         if (IsValidSettingName(key))
-            retVal = 
+            retVal =
             _settingsDoc[SETTINGS_ROOT_KEY][StringRef(key.c_str())].GetInt();
         else
-           HandleError(UnknownSetting, true, key.c_str()); 
+           HandleError(UnknownSetting, true, key.c_str());
     }
     catch(std::exception)
     {
         HandleError(CantGetSetting, true, key.c_str());
-    }  
+    }
     return retVal;
 }
 
@@ -554,15 +554,15 @@ std::string Settings::GetString(const std::string key)
     try
     {
         if (IsValidSettingName(key))
-            retVal = 
+            retVal =
             _settingsDoc[SETTINGS_ROOT_KEY][StringRef(key.c_str())].GetString();
         else
-           HandleError(UnknownSetting, true, key.c_str()); 
+           HandleError(UnknownSetting, true, key.c_str());
     }
     catch(std::exception)
     {
         HandleError(CantGetSetting, true, key.c_str());
-    }  
+    }
     return retVal;
 }
 
@@ -573,15 +573,15 @@ double Settings::GetDouble(const std::string key)
     try
     {
         if (IsValidSettingName(key))
-            retVal = 
+            retVal =
             _settingsDoc[SETTINGS_ROOT_KEY][StringRef(key.c_str())].GetDouble();
         else
-           HandleError(UnknownSetting, true, key.c_str()); 
+           HandleError(UnknownSetting, true, key.c_str());
     }
     catch(std::exception)
     {
         HandleError(CantGetSetting, true, key.c_str());
-    } 
+    }
     return retVal;
 }
 
@@ -592,7 +592,7 @@ bool Settings::IsValidSettingName(const std::string key)
     return it != _names.end();
 }
 
-// Ensure that the directory containing the file specified by _settingsPath 
+// Ensure that the directory containing the file specified by _settingsPath
 // exists
 void Settings::EnsureSettingsDirectoryExists()
 {
@@ -606,22 +606,22 @@ bool Settings::AreSameType(Value& expected, Value& actual)
 {
     if (expected.IsInt() && actual.IsInt())
         return true;
-    
-    // accept integers where we expect a double, to facilitate javascript 
+
+    // accept integers where we expect a double, to facilitate javascript
     // clients that remove the decimal point from doubles of integral value
     if (expected.IsDouble() && (actual.IsDouble() || actual.IsInt()))
         return true;
-    
+
     return(expected.IsString() && actual.IsString());
 }
 
-bool Settings::HandleError(ErrorCode code, bool fatal, const char* str, 
+bool Settings::HandleError(ErrorCode code, bool fatal, const char* str,
                                                                      int value)
 {
     if(_errorHandler != NULL)
         _errorHandler->HandleError(code, fatal, str, value);
     else
-        Logger::HandleError(code, fatal, str, value);  
+        Logger::HandleError(code, fatal, str, value);
 }
 
 // Gets the PrinterSettings singleton
