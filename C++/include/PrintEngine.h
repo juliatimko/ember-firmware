@@ -4,7 +4,7 @@
 //  This file is part of the Ember firmware.
 //
 //  Copyright 2015 Autodesk, Inc. <http://ember.autodesk.com/>
-//    
+//
 //  Authors:
 //  Richard Greene
 //  Jason Lefley
@@ -46,9 +46,9 @@ enum HighLevelMotorCommand
     GoHome,
     GoHomeWithoutRotateHome,
     MoveToStartPosition,
-    Press,                 
-    UnPress,               
-    Separate,              
+    Press,
+    UnPress,
+    Separate,
     Approach,
     ApproachAfterJam,
     PauseAndInspect,
@@ -66,7 +66,7 @@ class Timer;
 class Projector;
 
 // Aggregates the data used by the background thread.
-struct ThreadData 
+struct ThreadData
 {
     Magick::Image* pImage;
     PrintData*  pPrintData;
@@ -89,13 +89,13 @@ enum LayerType
 // The class that controls the printing process
 class PrintEngine : public ICallback, public ICommandTarget
 {
-public: 
+public:
     PrintEngine(bool haveHardware, Motor& motor, Projector& projector,
             PrinterStatusQueue& printerStatusPipe,
             const Timer& exposureTimer, const Timer& temperatureTimer,
             const Timer& delayTimer, const Timer& motorTimeoutTimer);
     ~PrintEngine();
-    void SendStatus(PrintEngineState state, StateChange change = NoChange, 
+    void SendStatus(PrintEngineState state, StateChange change = NoChange,
                     UISubState substate = NoUISubState);
     void SetNumLayers(int numLayers);
     void NextLayer();
@@ -123,16 +123,16 @@ public:
     void TurnProjectorOff();
     bool TryStartPrint();
     bool SendSettings();
-    bool HandleError(ErrorCode code, bool fatal = false, 
+    bool HandleError(ErrorCode code, bool fatal = false,
                      const char* str = NULL, int value = INT_MAX);
     void ClearError();
     bool HasAtLeastOneLayer();
     UISubState GetUISubState();
     void ClearPrintData();
-    UISubState GetHomeUISubState() { return _homeUISubState; } 
-    void ClearHomeUISubState() { _homeUISubState = NoUISubState; } 
+    UISubState GetHomeUISubState() { return _homeUISubState; }
+    void ClearHomeUISubState() { _homeUISubState = NoUISubState; }
     void ClearRotationInterrupt() { _gotRotationInterrupt = false; }
-    bool GotRotationInterrupt(); 
+    bool GotRotationInterrupt();
     void ClearJobID();
     void SetInspectionRequested(bool requested);
     bool PauseRequested() {return _inspectionRequested; }
@@ -164,10 +164,10 @@ public:
     bool SetPrintMode();
 
 #ifdef DEBUG
-    // for testing only 
+    // for testing only
     PrinterStateMachine* GetStateMachine() { return _pPrinterStateMachine; }
 #endif
-    
+
 private:
     PrinterStatus _printerStatus;
     PrinterStateMachine* _pPrinterStateMachine;
@@ -217,7 +217,7 @@ private:
     void DoorCallback(char data);
     bool IsFirstLayer();
     bool IsBurnInLayer();
-    void HandleProcessDataFailed(ErrorCode errorCode, 
+    void HandleProcessDataFailed(ErrorCode errorCode,
                                  const std::string& jobName);
     void ProcessData();
     double GetLayerTimeSec(LayerType type);
@@ -234,7 +234,6 @@ private:
     void USBDriveConnectedCallback(const std::string& deviceNode);
     void USBDriveDisconnectedCallback();
     static void* InBackground(void* context);
-}; 
+};
 
 #endif    // PRINTENGINE_H
-
