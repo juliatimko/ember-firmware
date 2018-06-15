@@ -4,7 +4,7 @@
 //  This file is part of the Ember firmware.
 //
 //  Copyright 2015 Autodesk, Inc. <http://ember.autodesk.com/>
-//    
+//
 //  Authors:
 //  Richard Greene
 //
@@ -72,6 +72,8 @@ constexpr const char* FL_SEPARATION_Z_SPEED  = "FirstSeparationMicronsPerSec";
 constexpr const char* FL_APPROACH_Z_JERK     = "FirstApproachZJerk";
 constexpr const char* FL_APPROACH_Z_SPEED    = "FirstApproachMicronsPerSec";
 constexpr const char* FL_ROTATION            = "FirstRotationMilliDegrees";
+constexpr const char* FL_ROTATION_R          = "FirstReturnRotationMilliDegrees";
+constexpr const char* FL_ROTATION_S          = "FirstSeparationRotationMilliDegrees";
 constexpr const char* FL_EXPOSURE_WAIT       = "FirstExposureWaitMS";
 constexpr const char* FL_SEPARATION_WAIT     = "FirstSeparationWaitMS";
 constexpr const char* FL_APPROACH_WAIT       = "FirstApproachWaitMS";
@@ -90,6 +92,8 @@ constexpr const char* BI_SEPARATION_Z_SPEED  = "BurnInSeparationMicronsPerSec";
 constexpr const char* BI_APPROACH_Z_JERK     = "BurnInApproachZJerk";
 constexpr const char* BI_APPROACH_Z_SPEED    = "BurnInApproachMicronsPerSec";
 constexpr const char* BI_ROTATION            = "BurnInRotationMilliDegrees";
+constexpr const char* BI_ROTATION_R          = "BurnInReturnRotationMilliDegrees";
+constexpr const char* BI_ROTATION_S          = "BurnInSeparationRotationMilliDegrees";
 constexpr const char* BI_EXPOSURE_WAIT       = "BurnInExposureWaitMS";
 constexpr const char* BI_SEPARATION_WAIT     = "BurnInSeparationWaitMS";
 constexpr const char* BI_APPROACH_WAIT       = "BurnInApproachWaitMS";
@@ -108,6 +112,8 @@ constexpr const char* ML_SEPARATION_Z_SPEED  = "ModelSeparationMicronsPerSec";
 constexpr const char* ML_APPROACH_Z_JERK     = "ModelApproachZJerk";
 constexpr const char* ML_APPROACH_Z_SPEED    = "ModelApproachMicronsPerSec";
 constexpr const char* ML_ROTATION            = "ModelRotationMilliDegrees";
+constexpr const char* ML_ROTATION_R          = "ModelReturnRotationMilliDegrees";
+constexpr const char* ML_ROTATION_S          = "ModelSeparationRotationMilliDegrees";
 constexpr const char* ML_EXPOSURE_WAIT       = "ModelExposureWaitMS";
 constexpr const char* ML_SEPARATION_WAIT     = "ModelSeparationWaitMS";
 constexpr const char* ML_APPROACH_WAIT       = "ModelApproachWaitMS";
@@ -148,7 +154,7 @@ constexpr const char* HOME_ON_APPROACH       = "RotateHomeOnApproach";
 constexpr const char* USE_PATTERN_MODE       = "UsePatternMode";
 
 // The class that handles configuration and print options
-class Settings 
+class Settings
 {
 public:
     Settings(const std::string& path);
@@ -170,16 +176,16 @@ public:
     std::string GetAllSettingsAsJSONString();
     bool SetFromJSONString(const std::string& str);
     bool SetFromFile(const std::string& filename);
-    
+
 protected:
     std::string _settingsPath;
     std::set<std::string> _names;
     IErrorHandler* _errorHandler;
-    
+
     bool IsValidSettingName(const std::string key);
     void EnsureSettingsDirectoryExists();
     bool AreSameType(Value& a, Value& b);
-    bool HandleError(ErrorCode code, bool fatal = false, 
+    bool HandleError(ErrorCode code, bool fatal = false,
                              const char* str = NULL, int value = INT_MAX);
     Document _settingsDoc;
     std::string _defaultJSON;
@@ -191,7 +197,7 @@ class PrinterSettings : public Settings
 {
 public:
     static Settings& Instance();
-    
+
 private:
     PrinterSettings();
     PrinterSettings(const std::string& path);
@@ -200,4 +206,3 @@ private:
     ~PrinterSettings();
 };
 #endif    // SETTINGS_H
-

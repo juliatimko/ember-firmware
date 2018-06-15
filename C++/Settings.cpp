@@ -123,6 +123,8 @@ _errorHandler(NULL)
             "\"" << FL_APPROACH_Z_JERK     << "\": 100000," <<
             "\"" << FL_APPROACH_Z_SPEED    << "\": 3000," <<
             "\"" << FL_ROTATION            << "\": 0," <<
+            "\"" << FL_ROTATION_R          << "\": 0," <<
+            "\"" << FL_ROTATION_S          << "\": 0," <<
             "\"" << FL_EXPOSURE_WAIT       << "\": 0," <<
             "\"" << FL_SEPARATION_WAIT     << "\": 0," <<
             "\"" << FL_APPROACH_WAIT       << "\": 0," <<
@@ -141,6 +143,8 @@ _errorHandler(NULL)
             "\"" << BI_APPROACH_Z_JERK     << "\": 100000," <<
             "\"" << BI_APPROACH_Z_SPEED    << "\": 3000," <<
             "\"" << BI_ROTATION            << "\": 60000," <<
+            "\"" << BI_ROTATION_R          << "\": 30000," <<
+            "\"" << BI_ROTATION_S          << "\": 30000," <<
             "\"" << BI_EXPOSURE_WAIT       << "\": 0," <<
             "\"" << BI_SEPARATION_WAIT     << "\": 0," <<
             "\"" << BI_APPROACH_WAIT       << "\": 0," <<
@@ -159,6 +163,8 @@ _errorHandler(NULL)
             "\"" << ML_APPROACH_Z_JERK     << "\": 100000," <<
             "\"" << ML_APPROACH_Z_SPEED    << "\": 3000," <<
             "\"" << ML_ROTATION            << "\": 60000," <<
+            "\"" << ML_ROTATION_R          << "\": 30000," <<
+            "\"" << ML_ROTATION_S          << "\": 30000," <<
             "\"" << ML_EXPOSURE_WAIT       << "\": 0," <<
             "\"" << ML_SEPARATION_WAIT     << "\": 0," <<
             "\"" << ML_APPROACH_WAIT       << "\": 0," <<
