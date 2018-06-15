@@ -4,7 +4,7 @@
 //  This file is part of the Ember firmware.
 //
 //  Copyright 2015 Autodesk, Inc. <http://ember.autodesk.com/>
-//    
+//
 //  Authors:
 //  Richard Greene
 //
@@ -35,7 +35,7 @@ public:
     int GetInt(int layer, std::string name);
     double GetDouble(int layer, std::string name);
     void Clear();
-    
+
 private:
     std::map<std::string, int> _columns;
     std::map<int, std::vector<double> > _rows;
@@ -44,7 +44,7 @@ private:
 
 };
 
-// Holds the values of all print settings to use for a single layer 
+// Holds the values of all print settings to use for a single layer
 struct CurrentLayerSettings
 {
     // listed here in the order in which they're used
@@ -57,6 +57,8 @@ struct CurrentLayerSettings
     int SeparationRotJerk;
     int SeparationRPM;
     int RotationMilliDegrees;
+    int ReturnRotationMilliDegrees;
+    int SeparationRotationMilliDegrees;
     int SeparationZJerk;
     int SeparationMicronsPerSec;
     int ZLiftMicrons;
@@ -65,11 +67,10 @@ struct CurrentLayerSettings
     int ApproachZJerk;
     int ApproachMicronsPerSec;
     int LayerThicknessMicrons;
-    
+
     // these are included to avoid changes while pause & inspect is in progress
     bool CanInspect;
     int InspectionHeightMicrons;
 };
 
 #endif    // LAYERSETTINGS_H
-
