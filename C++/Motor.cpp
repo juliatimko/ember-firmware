@@ -231,10 +231,16 @@ bool Motor::Separate(const CurrentLayerSettings& cls)
     commands.push_back(MotorCommand(MC_ROT_SETTINGS_REG, MC_SPEED,
                                     cls.SeparationRPM * R_SPEED_FACTOR));
 
+    int srotation = cls.SeparationRotationMilliDegrees / R_SCALE_FACTOR;
     int rotation = cls.RotationMilliDegrees / R_SCALE_FACTOR;
-    if (rotation != 0)
+    if (srotation != 0)
+    {
+        commands.push_back(MotorCommand(MC_ROT_ACTION_REG, MC_MOVE, -srotation));
+    }
+    else
+    {
         commands.push_back(MotorCommand(MC_ROT_ACTION_REG, MC_MOVE, -rotation));
-
+    }
     // lift the build platform
     commands.push_back(MotorCommand(MC_Z_SETTINGS_REG, MC_JERK,
                                     cls.SeparationZJerk));
@@ -267,17 +273,22 @@ bool Motor::Approach(const CurrentLayerSettings& cls, bool unJamFirst)
     commands.push_back(MotorCommand(MC_ROT_SETTINGS_REG, MC_SPEED,
                                     cls.ApproachRPM * R_SPEED_FACTOR));
 
+    int rrotation = cls.ReturnRotationMilliDegrees / R_SCALE_FACTOR;
     int rotation = cls.RotationMilliDegrees / R_SCALE_FACTOR;
-    if (rotation != 0)
+    if (rrotation != 0)
     {
         // see if we should use homing on approach, to avoid not rotating far
         // enough back when there's been drag (a partial jam) on separation
         if (_settings.GetInt(HOME_ON_APPROACH) != 0)
+        {
             commands.push_back(MotorCommand(MC_ROT_ACTION_REG, MC_HOME,
-                                                                 2 * rotation));
+                                                     2 * rotation));
+        }
         else
+        {
             commands.push_back(MotorCommand(MC_ROT_ACTION_REG, MC_MOVE,
-                                                                     rotation));
+                                                                     rrotation));
+        }
     }
 
     // lower into position to expose the next layer
