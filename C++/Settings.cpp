@@ -117,7 +117,7 @@ _errorHandler(NULL)
             "\"" << FL_SEPARATION_R_SPEED  << "\": 6," <<
             "\"" << FL_APPROACH_R_JERK     << "\": 100000," <<
             "\"" << FL_APPROACH_R_SPEED    << "\": 6," <<
-            "\"" << FL_Z_LIFT              << "\": 2000," <<
+            "\"" << FL_Z_LIFT              << "\": 15000," <<
             "\"" << FL_SEPARATION_Z_JERK   << "\": 100000," <<
             "\"" << FL_SEPARATION_Z_SPEED  << "\": 3000," <<
             "\"" << FL_APPROACH_Z_JERK     << "\": 100000," <<
@@ -137,7 +137,7 @@ _errorHandler(NULL)
             "\"" << BI_SEPARATION_R_SPEED  << "\": 11," <<
             "\"" << BI_APPROACH_R_JERK     << "\": 100000," <<
             "\"" << BI_APPROACH_R_SPEED    << "\": 11," <<
-            "\"" << BI_Z_LIFT              << "\": 2000," <<
+            "\"" << BI_Z_LIFT              << "\": 15000," <<
             "\"" << BI_SEPARATION_Z_JERK   << "\": 100000," <<
             "\"" << BI_SEPARATION_Z_SPEED  << "\": 3000," <<
             "\"" << BI_APPROACH_Z_JERK     << "\": 100000," <<
@@ -157,7 +157,7 @@ _errorHandler(NULL)
             "\"" << ML_SEPARATION_R_SPEED  << "\": 12," <<
             "\"" << ML_APPROACH_R_JERK     << "\": 100000," <<
             "\"" << ML_APPROACH_R_SPEED    << "\": 12," <<
-            "\"" << ML_Z_LIFT              << "\": 2000," <<
+            "\"" << ML_Z_LIFT              << "\": 15000," <<
             "\"" << ML_SEPARATION_Z_JERK   << "\": 100000," <<
             "\"" << ML_SEPARATION_Z_SPEED  << "\": 3000," <<
             "\"" << ML_APPROACH_Z_JERK     << "\": 100000," <<
