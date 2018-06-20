@@ -73,7 +73,6 @@ private:
 
     const I_I2C_Device& _i2cDevice;
     Settings& _settings;
-    PrinterStatus _printerStatus;
 };
 
 #endif    // MOTOR_H
