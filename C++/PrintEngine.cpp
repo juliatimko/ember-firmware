@@ -534,11 +534,6 @@ bool PrintEngine::IsBurnInLayer()
             _printerStatus._currentLayer <= 1 + numBurnInLayers);
 }
 
-// Returns true if and only if the current layer is the last one 
-bool PrintEngine::IsLastLayer()
-{
-  return _printerStatus._currentLayer == _pinterStatus._numLayers;
-}
 
 // Start the timer whose expiration indicates that the motor controller hasn't
 // signaled its command completion in the expected time

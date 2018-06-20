@@ -217,7 +217,6 @@ private:
     void DoorCallback(char data);
     bool IsFirstLayer();
     bool IsBurnInLayer();
-    bool IsLastLayer();
     void HandleProcessDataFailed(ErrorCode errorCode,
                                  const std::string& jobName);
     void ProcessData();
