@@ -534,6 +534,12 @@ bool PrintEngine::IsBurnInLayer()
             _printerStatus._currentLayer <= 1 + numBurnInLayers);
 }
 
+// Returns true if and only if the current layer is the last one 
+bool PrintEngine::IsLastLayer()
+{
+  return _printerStatus._currentLayer == _pinterStatus._numLayers;
+}
+
 // Start the timer whose expiration indicates that the motor controller hasn't
 // signaled its command completion in the expected time
 void PrintEngine::StartMotorTimeoutTimer(int seconds)
@@ -1617,7 +1623,7 @@ void PrintEngine::GetCurrentLayerSettings()
             _cls.ReturnRotationMilliDegrees = _perLayer.GetInt(p, FL_ROTATION_R);
             _cls.SeparationRotationMilliDegrees = _perLayer.GetInt(p, FL_ROTATION_S);
             _cls.SeparationZJerk = _perLayer.GetInt(p, FL_SEPARATION_Z_JERK);
-            _cls.SeparationMicronsPerSec = _perLayer.GetInt(p, 
+            _cls.SeparationMicronsPerSec = _perLayer.GetInt(p,
                                                         FL_SEPARATION_Z_SPEED);
             _cls.ZLiftMicrons = _perLayer.GetInt(p, FL_Z_LIFT);
             _cls.ApproachRotJerk = _perLayer.GetInt(p, FL_APPROACH_R_JERK);
