@@ -27,6 +27,7 @@
 
 #include <MotorController.h>
 #include "I_I2C_Device.h"
+#include <PrintEngine.h>
 
 constexpr int DELAY_AFTER_RESET_MSEC  = 500;
 
@@ -220,41 +221,45 @@ bool Motor::GoToStartPosition()
     return SendCommands(commands);
 }
 
+
+
 // Separate the current layer
 bool Motor::Separate(const CurrentLayerSettings& cls)
 {
     std::vector<MotorCommand> commands;
-
-    // rotate the previous layer from the PDMS
-    commands.push_back(MotorCommand(MC_ROT_SETTINGS_REG, MC_JERK,
-                                    cls.SeparationRotJerk));
-    commands.push_back(MotorCommand(MC_ROT_SETTINGS_REG, MC_SPEED,
-                                    cls.SeparationRPM * R_SPEED_FACTOR));
-
-    int srotation = cls.SeparationRotationMilliDegrees / R_SCALE_FACTOR;
-    int rotation = cls.RotationMilliDegrees / R_SCALE_FACTOR;
-    if (srotation != 0)
-    {
-        commands.push_back(MotorCommand(MC_ROT_ACTION_REG, MC_MOVE, -srotation));
-    }
     else
     {
-        commands.push_back(MotorCommand(MC_ROT_ACTION_REG, MC_MOVE, -rotation));
-    }
-    // lift the build platform
-    commands.push_back(MotorCommand(MC_Z_SETTINGS_REG, MC_JERK,
-                                    cls.SeparationZJerk));
-    commands.push_back(MotorCommand(MC_Z_SETTINGS_REG, MC_SPEED,
-                                 cls.SeparationMicronsPerSec * Z_SPEED_FACTOR));
+      // rotate the previous layer from the PDMS
+      commands.push_back(MotorCommand(MC_ROT_SETTINGS_REG, MC_JERK,
+                                        cls.SeparationRotJerk));
+      commands.push_back(MotorCommand(MC_ROT_SETTINGS_REG, MC_SPEED,
+                                        cls.SeparationRPM * R_SPEED_FACTOR));
 
-    if (cls.ZLiftMicrons != 0)
-        commands.push_back(MotorCommand(MC_Z_ACTION_REG, MC_MOVE,
+      int srotation = cls.SeparationRotationMilliDegrees / R_SCALE_FACTOR;
+      int rotation = cls.RotationMilliDegrees / R_SCALE_FACTOR;
+      if (srotation != 0)
+      {
+          commands.push_back(MotorCommand(MC_ROT_ACTION_REG, MC_MOVE, -srotation));
+      }
+      else
+      {
+          commands.push_back(MotorCommand(MC_ROT_ACTION_REG, MC_MOVE, -rotation));
+      }
+      // lift the build platform
+      commands.push_back(MotorCommand(MC_Z_SETTINGS_REG, MC_JERK,
+                                    cls.SeparationZJerk));
+      commands.push_back(MotorCommand(MC_Z_SETTINGS_REG, MC_SPEED,
+                                  cls.SeparationMicronsPerSec * Z_SPEED_FACTOR));
+
+      if (cls.ZLiftMicrons != 0)
+          commands.push_back(MotorCommand(MC_Z_ACTION_REG, MC_MOVE,
                                                             cls.ZLiftMicrons));
 
-    // request an interrupt when these commands are completed
-    commands.push_back(MotorCommand(MC_GENERAL_REG, MC_INTERRUPT));
+      // request an interrupt when these commands are completed
+      commands.push_back(MotorCommand(MC_GENERAL_REG, MC_INTERRUPT));
 
-    return SendCommands(commands);
+      return SendCommands(commands);
+    }
 }
 
 // Go to the position for exposing the next layer (with optional jam recovery

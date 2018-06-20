@@ -4,7 +4,7 @@
 //  This file is part of the Ember firmware.
 //
 //  Copyright 2015 Autodesk, Inc. <http://ember.autodesk.com/>
-//    
+//
 //  Authors:
 //  Richard Greene
 //
@@ -32,14 +32,14 @@
 #include <Settings.h>
 
 // Native motor controller rotation units are 1/10 degree or deci-degrees,
-// while smith uses 1/1000 degree or milli-degrees.  
-// Thus all rotation amounts must be divided by the following scale factor 
+// while smith uses 1/1000 degree or milli-degrees.
+// Thus all rotation amounts must be divided by the following scale factor
 // before being sent to the motor controller.
 constexpr int R_SCALE_FACTOR = 100;
 
 constexpr int UNITS_PER_REVOLUTION = 360 * 10; // deci-degrees in a full circle
 // The motor speed settings are defined in units of RPM and microns/s.
-// Multiplying by these conversion factors will convert 
+// Multiplying by these conversion factors will convert
 // RPM to degrees/10/minute and microns/s to microns/minute.
 constexpr int R_SPEED_FACTOR = UNITS_PER_REVOLUTION;
 constexpr int Z_SPEED_FACTOR = 60;
@@ -57,7 +57,7 @@ public:
     bool Pause();
     bool Resume();
     bool ClearPendingCommands(bool withInterrupt = false);
-    bool GoHome(bool withInterrupt = true, bool rotateHome = true, 
+    bool GoHome(bool withInterrupt = true, bool rotateHome = true,
                                            bool stayOpen = false);
     bool GoToStartPosition();
     bool Separate(const CurrentLayerSettings& cls);
@@ -67,13 +67,13 @@ public:
     bool UnJam(const CurrentLayerSettings& cls, bool withInterrupt = true);
     bool Press(const CurrentLayerSettings& cls);
     bool Unpress(const CurrentLayerSettings& cls);
-    
+
 private:
     bool SendCommands(std::vector<MotorCommand> commands);
 
     const I_I2C_Device& _i2cDevice;
     Settings& _settings;
+    PrinterStatus _printerStatus;
 };
 
 #endif    // MOTOR_H
-

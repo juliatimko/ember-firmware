@@ -534,7 +534,6 @@ bool PrintEngine::IsBurnInLayer()
             _printerStatus._currentLayer <= 1 + numBurnInLayers);
 }
 
-
 // Start the timer whose expiration indicates that the motor controller hasn't
 // signaled its command completion in the expected time
 void PrintEngine::StartMotorTimeoutTimer(int seconds)
@@ -1589,7 +1588,7 @@ void PrintEngine::GetCurrentLayerSettings()
     // The settings after exposure use the same layer type, but use the number
     // of the next layer for any per-layer overrides.
     int n = GetCurrentLayerNum();
-    int p = n + 1;
+    int p = n;
 
     // find the type of layer n
     LayerType type = Model;
