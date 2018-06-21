@@ -1614,16 +1614,16 @@ void PrintEngine::GetCurrentLayerSettings()
             _cls.SeparationRotJerk = _perLayer.GetInt(p, FL_SEPARATION_R_JERK);
             _cls.SeparationRPM = _perLayer.GetInt(p, FL_SEPARATION_R_SPEED);
             _cls.RotationMilliDegrees = _perLayer.GetInt(p, FL_ROTATION);
-            _cls.ReturnRotationMilliDegrees = _perLayer.GetInt(p, FL_ROTATION_R);
+            _cls.ReturnRotationMilliDegrees = _perLayer.GetInt(n, FL_ROTATION_R);
             _cls.SeparationRotationMilliDegrees = _perLayer.GetInt(p, FL_ROTATION_S);
             _cls.SeparationZJerk = _perLayer.GetInt(p, FL_SEPARATION_Z_JERK);
             _cls.SeparationMicronsPerSec = _perLayer.GetInt(p,
                                                         FL_SEPARATION_Z_SPEED);
             _cls.ZLiftMicrons = _perLayer.GetInt(p, FL_Z_LIFT);
-            _cls.ApproachRotJerk = _perLayer.GetInt(p, FL_APPROACH_R_JERK);
-            _cls.ApproachRPM = _perLayer.GetInt(p, FL_APPROACH_R_SPEED);
-            _cls.ApproachZJerk = _perLayer.GetInt(p, FL_APPROACH_Z_JERK);
-            _cls.ApproachMicronsPerSec = _perLayer.GetInt(p,
+            _cls.ApproachRotJerk = _perLayer.GetInt(n, FL_APPROACH_R_JERK);
+            _cls.ApproachRPM = _perLayer.GetInt(n, FL_APPROACH_R_SPEED);
+            _cls.ApproachZJerk = _perLayer.GetInt(n, FL_APPROACH_Z_JERK);
+            _cls.ApproachMicronsPerSec = _perLayer.GetInt(n,
                                                         FL_APPROACH_Z_SPEED);
             break;
 
@@ -1638,16 +1638,16 @@ void PrintEngine::GetCurrentLayerSettings()
             _cls.SeparationRotJerk = _perLayer.GetInt(p, BI_SEPARATION_R_JERK);
             _cls.SeparationRPM = _perLayer.GetInt(p, BI_SEPARATION_R_SPEED);
             _cls.RotationMilliDegrees = _perLayer.GetInt(p, BI_ROTATION);
-            _cls.ReturnRotationMilliDegrees = _perLayer.GetInt(p, BI_ROTATION_R);
+            _cls.ReturnRotationMilliDegrees = _perLayer.GetInt(n, BI_ROTATION_R);
             _cls.SeparationRotationMilliDegrees = _perLayer.GetInt(p, BI_ROTATION_S);
             _cls.SeparationZJerk = _perLayer.GetInt(p, BI_SEPARATION_Z_JERK);
             _cls.SeparationMicronsPerSec = _perLayer.GetInt(p,
                                                         BI_SEPARATION_Z_SPEED);
             _cls.ZLiftMicrons = _perLayer.GetInt(p, BI_Z_LIFT);
-            _cls.ApproachRotJerk = _perLayer.GetInt(p, BI_APPROACH_R_JERK);
-            _cls.ApproachRPM = _perLayer.GetInt(p, BI_APPROACH_R_SPEED);
-            _cls.ApproachZJerk = _perLayer.GetInt(p, BI_APPROACH_Z_JERK);
-            _cls.ApproachMicronsPerSec = _perLayer.GetInt(p,
+            _cls.ApproachRotJerk = _perLayer.GetInt(n, BI_APPROACH_R_JERK);
+            _cls.ApproachRPM = _perLayer.GetInt(n, BI_APPROACH_R_SPEED);
+            _cls.ApproachZJerk = _perLayer.GetInt(n, BI_APPROACH_Z_JERK);
+            _cls.ApproachMicronsPerSec = _perLayer.GetInt(n,
                                                         BI_APPROACH_Z_SPEED);
             break;
 
@@ -1662,16 +1662,16 @@ void PrintEngine::GetCurrentLayerSettings()
             _cls.SeparationRotJerk = _perLayer.GetInt(p, ML_SEPARATION_R_JERK);
             _cls.SeparationRPM = _perLayer.GetInt(p, ML_SEPARATION_R_SPEED);
             _cls.RotationMilliDegrees = _perLayer.GetInt(p, ML_ROTATION);
-            _cls.ReturnRotationMilliDegrees = _perLayer.GetInt(p, ML_ROTATION_R);
+            _cls.ReturnRotationMilliDegrees = _perLayer.GetInt(n, ML_ROTATION_R);
             _cls.SeparationRotationMilliDegrees = _perLayer.GetInt(p, ML_ROTATION_S);
             _cls.SeparationZJerk = _perLayer.GetInt(p, ML_SEPARATION_Z_JERK);
             _cls.SeparationMicronsPerSec = _perLayer.GetInt(p,
                                                         ML_SEPARATION_Z_SPEED);
             _cls.ZLiftMicrons = _perLayer.GetInt(p, ML_Z_LIFT);
-            _cls.ApproachRotJerk = _perLayer.GetInt(p, ML_APPROACH_R_JERK);
-            _cls.ApproachRPM = _perLayer.GetInt(p, ML_APPROACH_R_SPEED);
-            _cls.ApproachZJerk = _perLayer.GetInt(p, ML_APPROACH_Z_JERK);
-            _cls.ApproachMicronsPerSec = _perLayer.GetInt(p,
+            _cls.ApproachRotJerk = _perLayer.GetInt(n, ML_APPROACH_R_JERK);
+            _cls.ApproachRPM = _perLayer.GetInt(n, ML_APPROACH_R_SPEED);
+            _cls.ApproachZJerk = _perLayer.GetInt(n, ML_APPROACH_Z_JERK);
+            _cls.ApproachMicronsPerSec = _perLayer.GetInt(n,
                                                         ML_APPROACH_Z_SPEED);
             break;
     }
