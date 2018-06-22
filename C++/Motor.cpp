@@ -250,8 +250,10 @@ bool Motor::Separate(const CurrentLayerSettings& cls)
                                   cls.SeparationMicronsPerSec * Z_SPEED_FACTOR));
 
     if (cls.ZLiftMicrons != 0)
-    commands.push_back(MotorCommand(MC_Z_ACTION_REG, MC_MOVE,
-                                                            cls.ZLiftMicrons));
+    {
+        commands.push_back(MotorCommand(MC_Z_ACTION_REG, MC_MOVE,
+                                                        cls.ZLiftMicrons));
+    }
 
     // request an interrupt when these commands are completed
     commands.push_back(MotorCommand(MC_GENERAL_REG, MC_INTERRUPT));

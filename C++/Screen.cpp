@@ -281,7 +281,7 @@ void PrintStatusScreen::Draw(IDisplay* pDisplay, PrinterStatus* pStatus)
         int min = (roundingTime - (hrs * 3600)) / 60;
 
         char timeRemaining[20];
-        sprintf(timeRemaining,"%d:%02d", min);
+        sprintf(timeRemaining,"%d:%02d", hrs, min);
 
         std::string time(timeRemaining);
 

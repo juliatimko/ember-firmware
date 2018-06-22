@@ -122,7 +122,7 @@ _errorHandler(NULL)
             "\"" << FL_SEPARATION_Z_SPEED  << "\": 3000," <<
             "\"" << FL_APPROACH_Z_JERK     << "\": 100000," <<
             "\"" << FL_APPROACH_Z_SPEED    << "\": 3000," <<
-            "\"" << FL_ROTATION            << "\": 0," <<
+            "\"" << FL_ROTATION            << "\": 60000," <<
             "\"" << FL_ROTATION_R          << "\": 0," <<
             "\"" << FL_ROTATION_S          << "\": 0," <<
             "\"" << FL_EXPOSURE_WAIT       << "\": 0," <<

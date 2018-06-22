@@ -1588,7 +1588,7 @@ void PrintEngine::GetCurrentLayerSettings()
     // The settings after exposure use the same layer type, but use the number
     // of the next layer for any per-layer overrides.
     int n = GetCurrentLayerNum();
-    int p = n;
+    int p = n + 1;
 
     // find the type of layer n
     LayerType type = Model;
