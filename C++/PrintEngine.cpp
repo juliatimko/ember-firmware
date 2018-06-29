@@ -834,6 +834,10 @@ void PrintEngine::SendMotorCommand(HighLevelMotorCommand command)
             StartMotorTimeoutTimer(GetHomingTimeoutSec());
             break;
 
+        case EndPrintLiftUp:
+            success = _motor.LiftThenHome();
+            break;
+
         case MoveToStartPosition:
             success = _motor.GoToStartPosition();
             // for tracking where we are, to enable lifting for inspection

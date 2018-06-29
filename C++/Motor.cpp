@@ -180,6 +180,31 @@ bool Motor::GoHome(bool withInterrupt, bool rotateHome, bool stayOpen)
     return SendCommands(commands);
 }
 
+bool Motor::LiftThenHome(bool withInterrupt, bool rotateHome, bool stayOpen)
+{
+    std::vector<MotorCommand> commands;
+
+    // set Z motion parameters
+    commands.push_back(MotorCommand(MC_Z_SETTINGS_REG, MC_JERK,
+                                    _settings.GetInt(Z_HOMING_JERK)));
+    commands.push_back(MotorCommand(MC_Z_SETTINGS_REG, MC_SPEED,
+                   Z_SPEED_FACTOR * _settings.GetInt(Z_HOMING_SPEED)));
+
+    // go up to the Z home position (but no more than twice the max Z travel)
+    commands.push_back(MotorCommand(MC_Z_ACTION_REG, MC_HOME,
+                               -2 * _settings.GetInt(Z_START_PRINT_POSITION)));
+
+    GoHome(false, true);
+
+    if (withInterrupt)
+    {
+        // request an interrupt when these commands are completed
+        commands.push_back(MotorCommand(MC_GENERAL_REG, MC_INTERRUPT));
+    }
+
+    return SendCommands(commands);
+}
+
 // Goes to home position (without interrupt), then lowers the build platform to
 // the PDMS in order to calibrate and/or start a print
 bool Motor::GoToStartPosition()

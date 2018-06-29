@@ -466,7 +466,7 @@ Home::~Home()
 
 sc::result Home::TryStartPrint()
 {
-    context<PrinterStateMachine>()._skipHomingRotation = true;
+    context<PrinterStateMachine>()._skipHomingRotation = false;
 
     if (PRINTENGINE->TryStartPrint())
     {
@@ -1051,7 +1051,7 @@ sc::result Approaching::react(const EvMotionCompleted&)
     {
         PRINTENGINE->ClearCurrentPrint();
         context<PrinterStateMachine>()._homingSubState = PrintCompleted;
-        context<PrinterStateMachine>().SendMotorCommand(GoHomeWithoutRotateHome);
+        context<PrinterStateMachine>().SendMotorCommand(EndPrintLiftUp);
 
         if (IsInternetConnected())
             return transit<GettingFeedback>();

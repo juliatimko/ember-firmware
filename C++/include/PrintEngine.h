@@ -1,4 +1,3 @@
-//  File:   PrintEngine.h
 //  Defines the engine that controls the printing process
 //
 //  This file is part of the Ember firmware.
@@ -45,6 +44,7 @@ enum HighLevelMotorCommand
 {
     GoHome,
     GoHomeWithoutRotateHome,
+    EndPrintLiftUp,
     MoveToStartPosition,
     Press,
     UnPress,
