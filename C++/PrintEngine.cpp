@@ -835,7 +835,7 @@ void PrintEngine::SendMotorCommand(HighLevelMotorCommand command)
             break;
 
         case EndPrintLiftUp:
-            success = _motor.LiftThenHome();
+            success = _motor.LiftThenHome(true, false);
             break;
 
         case MoveToStartPosition:

@@ -194,14 +194,8 @@ bool Motor::LiftThenHome(bool withInterrupt, bool rotateHome, bool stayOpen)
     commands.push_back(MotorCommand(MC_Z_ACTION_REG, MC_HOME,
                                -2 * _settings.GetInt(Z_START_PRINT_POSITION)));
 
-    GoHome(false, true);
-
-    if (withInterrupt)
-    {
-        // request an interrupt when these commands are completed
-        commands.push_back(MotorCommand(MC_GENERAL_REG, MC_INTERRUPT));
-    }
-
+    GoHome(false);
+                               
     return SendCommands(commands);
 }
 
