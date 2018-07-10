@@ -224,6 +224,7 @@ private:
     bool IsPrinterTooHot();
     void LogStatusAndSettings();
     int GetHomingTimeoutSec();
+    int GetLiftTimeoutSec();x
     int GetStartPositionTimeoutSec();
     int GetPauseAndInspectTimeoutSec(bool toInspect);
     int GetUnjammingTimeoutSec();

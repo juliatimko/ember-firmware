@@ -194,8 +194,8 @@ bool Motor::LiftThenHome(bool withInterrupt, bool rotateHome, bool stayOpen)
     commands.push_back(MotorCommand(MC_Z_ACTION_REG, MC_HOME,
                                -2 * _settings.GetInt(Z_START_PRINT_POSITION)));
 
-    GoHome(false);
-                               
+    GoHome(withInterrupt, rotateHome, stayOpen);
+
     return SendCommands(commands);
 }
 
@@ -257,6 +257,10 @@ bool Motor::Separate(const CurrentLayerSettings& cls)
     if (srotation != 0)
     {
         commands.push_back(MotorCommand(MC_ROT_ACTION_REG, MC_MOVE, -srotation));
+    }
+    else if (srotation == 0)
+    {
+        break,
     }
     else
     {
