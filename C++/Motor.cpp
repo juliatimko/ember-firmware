@@ -260,7 +260,6 @@ bool Motor::Separate(const CurrentLayerSettings& cls)
     }
     else if (srotation == 0)
     {
-        break,
     }
     else
     {

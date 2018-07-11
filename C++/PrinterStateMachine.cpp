@@ -1050,8 +1050,8 @@ sc::result Approaching::react(const EvMotionCompleted&)
     if (!PRINTENGINE->MoreLayers())
     {
         PRINTENGINE->ClearCurrentPrint();
-        context<PrinterStateMachine>().SendMotorCommand(EndPrintLiftUp);
         context<PrinterStateMachine>()._homingSubState = PrintCompleted;
+        context<PrinterStateMachine>().SendMotorCommand(GoHomeWithoutRotateHome);
 
         if (IsInternetConnected())
             return transit<GettingFeedback>();
