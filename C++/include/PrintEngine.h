@@ -44,7 +44,6 @@ enum HighLevelMotorCommand
 {
     GoHome,
     GoHomeWithoutRotateHome,
-    EndPrintLiftUp,
     MoveToStartPosition,
     Press,
     UnPress,
@@ -224,7 +223,6 @@ private:
     bool IsPrinterTooHot();
     void LogStatusAndSettings();
     int GetHomingTimeoutSec();
-    int GetLiftTimeoutSec();
     int GetStartPositionTimeoutSec();
     int GetPauseAndInspectTimeoutSec(bool toInspect);
     int GetUnjammingTimeoutSec();

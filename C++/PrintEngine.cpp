@@ -834,11 +834,6 @@ void PrintEngine::SendMotorCommand(HighLevelMotorCommand command)
             StartMotorTimeoutTimer(GetHomingTimeoutSec());
             break;
 
-        case EndPrintLiftUp:
-            success = _motor.LiftThenHome(true, false);
-            StartMotorTimeoutTimer(GetLiftTimeoutSec());
-            break;
-
         case MoveToStartPosition:
             success = _motor.GoToStartPosition();
             // for tracking where we are, to enable lifting for inspection
@@ -1485,12 +1480,6 @@ int PrintEngine::GetHomingTimeoutSec()
     // Z height is in microns and speed in microns/s
     return PadTimeout(deltaR / rSpeed +
                       abs(_settings.GetInt(Z_START_PRINT_POSITION)) / zSpeed);
-}
-
-int PrintEngine::GetLiftTimeoutSec()
-{
-  double zSpeed = _settings.GetInt(Z_HOMING_SPEED);
-  return PadTimeout(abs(_settings.GetInt(Z_START_PRINT_POSITION)) / zSpeed);
 }
 
 // Returns the timeout (in seconds) to allow for getting to the start position

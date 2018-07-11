@@ -180,24 +180,6 @@ bool Motor::GoHome(bool withInterrupt, bool rotateHome, bool stayOpen)
     return SendCommands(commands);
 }
 
-bool Motor::LiftThenHome(bool withInterrupt, bool rotateHome, bool stayOpen)
-{
-    std::vector<MotorCommand> commands;
-
-    // set Z motion parameters
-    commands.push_back(MotorCommand(MC_Z_SETTINGS_REG, MC_JERK,
-                                    _settings.GetInt(Z_HOMING_JERK)));
-    commands.push_back(MotorCommand(MC_Z_SETTINGS_REG, MC_SPEED,
-                   Z_SPEED_FACTOR * _settings.GetInt(Z_HOMING_SPEED)));
-
-    // go up to the Z home position (but no more than twice the max Z travel)
-    commands.push_back(MotorCommand(MC_Z_ACTION_REG, MC_HOME,
-                               -2 * _settings.GetInt(Z_START_PRINT_POSITION)));
-
-    GoHome(withInterrupt, rotateHome, stayOpen);
-
-    return SendCommands(commands);
-}
 
 // Goes to home position (without interrupt), then lowers the build platform to
 // the PDMS in order to calibrate and/or start a print
@@ -253,8 +235,10 @@ bool Motor::Separate(const CurrentLayerSettings& cls)
                                         cls.SeparationRPM * R_SPEED_FACTOR));
 
     int srotation = cls.SeparationRotationMilliDegrees / R_SCALE_FACTOR;
-    int rotation = cls.RotationMilliDegrees / R_SCALE_FACTOR;
-    if (srotation != 0)
+    int rotation = cls.RotationMilliDegrees;
+    if (rotation)
+
+    if (rotation != 10)
     {
         commands.push_back(MotorCommand(MC_ROT_ACTION_REG, MC_MOVE, -srotation));
     }
